@@ -16,5 +16,7 @@ list(df)
 df[60:100]
 
 #Extracting rows where kwh's are greater than 30
+df[df.kwh > 30] #for some reason this doesn't work for me
+
 k = df.kwh
 df[k > 30]
