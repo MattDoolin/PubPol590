@@ -4,10 +4,10 @@ import pandas as pd
 import numpy as np
 import os
 
-main_dir = "C:\Users\Matt\Documents\Nicholas School-2nd Year\Spring 2015\Big Data Analysis\Python\Data"
+main_dir = "C:\Users\Matt\Documents\Nicholas School-2nd Year\Spring 2015\Big Data Analysis"
 git_dir = "C:\Users\Matt\Documents\Nicholas School-2nd Year\Spring 2015\Big Data Analysis\GitHub\PubPol590"
 
-csv_file = "\Python\Data\sample_data_clean.csv"
+csv_file = "Python\Data\sample_data_clean.csv"
 
 # OS module
 
@@ -54,7 +54,7 @@ list2
 #tuples---can't change
 tup1 = (8, 3, 19)
 tup1[2]
-tup1[2] = 5 #Element inside can't be changed
+#tup1[2] = 5 #Element inside can't be changed
 
 ##convert 
 list2 = list(tup1)
@@ -87,3 +87,24 @@ s1
 s2
 s3
 ##lists to DataFrame
+# only works with vectors of the same length
+
+zip(list4, list5)
+list7 = range(60,65)
+zip1 = zip(list4, list5, list7)
+
+df1 = DataFrame(zip1)
+
+df2 = DataFrame(zip1, columns = ['two', 'apple', ':)']) #gives names to columns
+df2['two'] #extracts column 'two' # quotation marks are necessary
+
+df3 = DataFrame(zip1, columns = [2, '2', ':)'])
+#shows that column names can be int or str
+#calling rows
+df2[1:3] #slices [n,m] n to m-1, show
+df3[['2',':)']][3:4] #pulls row 3 from columns '2' and ':)' the bracket order matters here
+
+## make dataframe using dict notation
+
+df4 = DataFrame({':(': list4, 9:list6}) # {} makes a dictionary in python, the first item is ken
+#notation {key1: item(s) in key1, key2: items in key2}
