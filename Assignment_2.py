@@ -31,5 +31,5 @@ df3 = df1[duplicate_date]
 
 df4 = df1.drop(duplicate_date)
 ##mean of consump variable after dropping fully duplicated rows and 
-    #rows where date is duplicated and consump value is missing
+#rows where date is duplicated and consump value is missing
 df4['consump'].mean()
