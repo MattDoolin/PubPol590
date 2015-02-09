@@ -22,7 +22,7 @@ paths2 = [root + 'file_rand_%s.csv' % v for v in range(1,5)]
 [root + v for v in os.listdir(root)]
 ##need to find what they have in common to filter out what we don't want
 [root + v for v in os.listdir(root) if v.startswith("file_")]
-[v for v in os.listdir(root) if v.startwswith('file_')]
+[v for v in os.listdir(root) if v.startswith('file_')]
 
 paths3 = [root + v for v in os.listdir(root) if v.startswith("file_")]
 
