@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 #Establishing File Paths
-main_dir = "C:\Users\Matt\Documents\Nicholas School-2nd Year\Spring 2015\Big Data Analysis\Python Codes"
+main_dir = "C:\Users\Matt\Documents\Nicholas School-2nd Year\Spring 2015\Big Data Analysis\Python"
 txt_file = "\Data\Assignment_1_data.txt"
 
 df = pd.read_table(main_dir + txt_file, sep = " ") #indicating delimiter is a space

@@ -97,7 +97,6 @@ df1 = DataFrame(zip1)
 
 df2 = DataFrame(zip1, columns = ['two', 'apple', ':)']) #gives names to columns
 df2['two'] #extracts column 'two' # quotation marks are necessary
-
 df3 = DataFrame(zip1, columns = [2, '2', ':)'])
 #shows that column names can be int or str
 #calling rows
