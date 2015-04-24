@@ -14,8 +14,6 @@ import statsmodels.api as sm
 main_dir = "C:\Users\Matt\Documents\Nicholas School-2nd Year\Spring 2015\Big Data Analysis"
 root = main_dir + "\Python\Data\\"
 
-df = pd.read_csv(root + 'final_kwh_w_dummies_wide.csv')
-
 # Change working directory
 os.chdir(root)
 from logit_functions import *
@@ -25,13 +23,16 @@ from fe_functions import *
 #Part A
 #####################################################################
 
-# GET TARIFFS ------------
+nas = ['', '  ', 'NA']
+df = pd.read_csv(root + 'final_kwh_w_dummies_wide.csv', na_values = nas)
+
+# Getting Tarriffs ------------
 tariffs = [v for v in pd.unique(df['tariff']) if v != 'E']
 stimuli = [v for v in pd.unique(df['stimulus']) if v != 'E']
 tariffs.sort()
 stimuli.sort()
 
-# RUN LOGIT
+# Running Logit on Pretrial Data
 drop = [v for v in df.columns if v.startswith("kwh_2010")]
 df_pretrial = df.drop(drop, axis=1)
 
@@ -40,13 +41,13 @@ for i in tariffs:
         # dummy vars must start with "D_" and consumption vars with "kwh_"
         logit_results, df_logit = do_logit(df_pretrial, i, j, add_D=None, mc=False)
         
-# QUICK MEANS COMPARISON WITH T-TEST BY HAND----------
+# Quick Means For Comparison----------
 # create means
 grp = df_logit.groupby('tariff')
 df_mean = grp.mean().transpose()
 df_mean.B - df_mean.E
 
-# do a t-test "by hand"
+# T-test
 df_s = grp.std().transpose()
 df_n = grp.count().transpose().mean()
 top = df_mean['B'] - df_mean['E']
@@ -65,16 +66,14 @@ print "\n\n\n"
 #Part B
 ###################################################################
 
-
-logit_results, df_logit = do_logit(df_pretrial, 'C', '4', add_D=None, mc=False)
+logit_results, df_logit = do_logit(df_pretrial, 'B', '4', add_D=None, mc=False)
 df_logit['p_hat'] = logit_results.predict()
-df_logit['trt'] = 0 + (df_logit['tariff'] == 'C')
+df_logit['trt'] = 0 + (df_logit['tariff'] == 'B')
 df_logit['w']=np.sqrt(df_logit['trt']/df_logit['p_hat']+(1-df_logit['trt'])/(1-df_logit['p_hat']))
 
 df_w = df_logit[['ID', 'trt', 'w']]
-df_w
 
-df1 = pd.read_csv(root + 'final_kwh_long.csv')
+df1 = pd.read_csv(root + 'final_kwh_long.csv', na_values = nas)
 df2 = pd.merge(df1,df_logit)
 
 ##creating necessary variables
@@ -122,5 +121,3 @@ X = DataFrame(X, columns = nms)
 fe_w_model = sm.OLS(y, X)
 fe_w_results = fe_w_model.fit()
 print(fe_w_results.summary())
-
-
